@@ -24,7 +24,8 @@
 		  </form><br>
 		  <button type="button" id="btn-import" class="btn btn-default">Upload</button>	
 		  <div style="height: 20px"></div>
-		  <p id="msg">Your file: <a href="#" id="link_file"></a></p>	  
+		  <p id="msg_uploading">Uploading...</p>
+		  <p id="msg_link">Your file: <a href="#" id="link_file"></a></p>	  
           </div>
         </div>
       </div>
@@ -33,13 +34,17 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/javascript">  
 	$(document).ready(function() {
-		$("#msg").hide();
+		$("#msg_uploading").hide();
+		$("#msg_link").hide();
 		$("#btn-import").click(function() {
+
 			var file = $('#file-upload').get()[0].files[0];
 			var fileUpload = $('#file-upload').val();
 			if(!file){
 				alert("Vui lòng chọn file");
 				return;
+			}else{
+				$("#msg_uploading").show();
 			}
  
 			$.ajax({
@@ -51,7 +56,8 @@
 				success : function(msg){
 					$("#link_file").attr("href", msg);
 					$("#link_file").text(msg);
-					$("#msg").show();
+					$("#msg_uploading").hide();
+					$("#msg_link").show();
 				}
 			}).done(function () {
 				alert("Upload thành công");

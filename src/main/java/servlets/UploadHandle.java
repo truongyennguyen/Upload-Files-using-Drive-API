@@ -96,6 +96,7 @@ public class UploadHandle extends HttpServlet {
 							//write content on temp file
 							FileOutputStream outputStream = new FileOutputStream(file.getPath());
 							outputStream.write(item.get());
+							outputStream.close();
 							
 							//set type of file upload --> theo định dạng file
 							FileContent mediaContent = new FileContent(null, file);
@@ -107,12 +108,12 @@ public class UploadHandle extends HttpServlet {
 							String link = "https://drive.google.com/file/d/" + file_upload.getId() + "/view";
 							response.getWriter().write(link);
 							//remove temp file when finish
-							file.deleteOnExit();
+							file.delete();
 					}
 				}
  
 			} catch (Exception e) {
-				
+				System.out.print(e);
 			}
 		}
 		
